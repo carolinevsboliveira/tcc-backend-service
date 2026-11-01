@@ -13,6 +13,7 @@ import (
 	"github.com/caroline-oliveira/backend-tcc/internal/adapters/jwt"
 	"github.com/caroline-oliveira/backend-tcc/internal/adapters/memory"
 	"github.com/caroline-oliveira/backend-tcc/internal/application/auth"
+	"github.com/caroline-oliveira/backend-tcc/internal/application/tasks"
 	"github.com/joho/godotenv"
 )
 
@@ -34,14 +35,17 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	taskRepository := memory.NewTaskRepository()
 
 	jwtProvider, err := jwt.NewJWTProvider([]byte(os.Getenv("JWT_SECRET")), time.Now)
 	if err != nil {
 		log.Fatal(err)
 	}
 	authService := auth.NewAuthService(userRepository, jwtProvider)
+	taskService := tasks.NewService(taskRepository, userRepository, authService)
 	router := httpadapter.NewRouter(httpadapter.Dependencies{
-		Auth: httpadapter.NewAuthHandler(authService),
+		Auth:  httpadapter.NewAuthHandler(authService),
+		Tasks: httpadapter.NewTasksHandler(taskService),
 	})
 	server := &http.Server{
 		Addr:        ":8080",

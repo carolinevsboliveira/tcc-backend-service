@@ -27,6 +27,10 @@ func writeError(w http.ResponseWriter, err error) {
 		writeJSON(w, http.StatusNotFound, errorBody{Error: "not found"})
 	case errors.Is(err, domain.ErrUnauthorized):
 		writeJSON(w, http.StatusUnauthorized, errorBody{Error: "unauthorized"})
+	case errors.Is(err, domain.ErrForbidden):
+		writeJSON(w, http.StatusForbidden, errorBody{Error: "forbidden"})
+	case errors.Is(err, domain.ErrValidation):
+		writeJSON(w, http.StatusBadRequest, errorBody{Error: "validation error"})
 	case errors.Is(err, domain.ErrInvalidTokenSignature):
 		writeJSON(w, http.StatusUnauthorized, errorBody{Error: "invalid token signature"})
 	case errors.Is(err, domain.ErrInvalidTokenClaims):
