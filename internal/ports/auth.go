@@ -12,10 +12,10 @@ type Credentials struct {
 }
 
 type AuthToken struct {
-	AccessToken      string
-	RefreshToken     string
-	ExpiresIn        int64
-	ExpiresInRefresh int64
+	AccessToken      string `json:"access_token"`
+	RefreshToken     string `json:"refresh_token"`
+	ExpiresIn        int64  `json:"expires_in"`
+	ExpiresInRefresh int64  `json:"expires_in_refresh"`
 }
 
 type UserProfile struct {

@@ -3,9 +3,9 @@ package ports
 import "github.com/caroline-oliveira/backend-tcc/internal/domain"
 
 type TokenClaims struct {
-	SubjectID string
-	Email     string
-	Role      domain.Role
+	SubjectID string      `json:"subject_id"`
+	Email     string      `json:"email"`
+	Role      domain.Role `json:"role"`
 }
 
 // TokenIssuer issues and parses JWT access/refresh pairs.
