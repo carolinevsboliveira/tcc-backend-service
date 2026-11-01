@@ -12,9 +12,10 @@ import (
 )
 
 type UserRepository struct {
-	mu      sync.RWMutex
-	byID    map[string]domain.User
-	byEmail map[string]string
+	mu           sync.RWMutex
+	byID         map[string]domain.User
+	byEmail      map[string]string
+	departments  map[string]domain.Department
 }
 
 type seedUser struct {
@@ -24,6 +25,15 @@ type seedUser struct {
 	Role         domain.Role
 	DepartmentID string
 	Active       bool
+}
+
+func defaultDepartments() map[string]domain.Department {
+	return map[string]domain.Department{
+		"dept-001": {ID: "dept-001", Name: "Dep. Exatas"},
+		"dept-002": {ID: "dept-002", Name: "Dep. Humanas"},
+		"dept-003": {ID: "dept-003", Name: "Dep. Biológicas"},
+		"dept-004": {ID: "dept-004", Name: "Dep. Tecnologia"},
+	}
 }
 
 func NewUserRepository(seedPassword string) (*UserRepository, error) {
@@ -62,7 +72,22 @@ func NewUserRepository(seedPassword string) (*UserRepository, error) {
 		byEmail[user.Email] = user.ID
 	}
 
-	return &UserRepository{byID: byID, byEmail: byEmail}, nil
+	return &UserRepository{
+		byID:        byID,
+		byEmail:     byEmail,
+		departments: defaultDepartments(),
+	}, nil
+}
+
+func (r *UserRepository) GetDepartment(_ context.Context, id string) (domain.Department, error) {
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+
+	dept, ok := r.departments[id]
+	if !ok {
+		return domain.Department{}, domain.ErrNotFound
+	}
+	return dept, nil
 }
 
 

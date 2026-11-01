@@ -19,9 +19,9 @@ type AuthToken struct {
 }
 
 type UserProfile struct {
-	Name         string      `json:"name"`
-	Role         domain.Role `json:"role"`
-	DepartmentID string      `json:"department_id"`
+	Name       string             `json:"name"`
+	Role       domain.Role        `json:"role"`
+	Department domain.Department  `json:"department"`
 }
 
 type AuthService interface {

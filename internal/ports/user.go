@@ -11,4 +11,5 @@ type UserRepository interface {
 	GetByID(ctx context.Context, id string) (domain.User, error)
 	GetByEmail(ctx context.Context, email string) (domain.User, error)
 	ListByRole(ctx context.Context, role domain.Role) ([]domain.User, error)
+	GetDepartment(ctx context.Context, id string) (domain.Department, error)
 }

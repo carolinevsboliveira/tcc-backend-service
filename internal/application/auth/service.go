@@ -56,7 +56,12 @@ func (s *authService) Me(ctx context.Context, accessToken string) (ports.UserPro
 		return ports.UserProfile{}, domain.ErrUnauthorized
 	}
 
-	return ports.UserProfile{Name: user.Name, Role: user.Role, DepartmentID: user.DepartmentID}, nil
+	department, err := s.userRepository.GetDepartment(ctx, user.DepartmentID)
+	if err != nil {
+		return ports.UserProfile{}, err
+	}
+
+	return ports.UserProfile{Name: user.Name, Role: user.Role, Department: department}, nil
 }
 
 func (s *authService) validateUserCredentials(ctx context.Context, credentials ports.Credentials) (domain.User, error) {
