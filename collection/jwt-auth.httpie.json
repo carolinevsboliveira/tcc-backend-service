@@ -1,0 +1,337 @@
+{
+  "meta": {
+    "format": "httpie",
+    "version": "1.0.0",
+    "contentType": "workspace",
+    "schema": "https://schema.httpie.io/v1.0.0.json",
+    "docs": "https://httpie.io/docs/desktop/export-json-format"
+  },
+  "entry": {
+    "name": "JWT Auth API",
+    "icon": {
+      "name": "lock",
+      "color": "blue"
+    },
+    "collections": [
+      {
+        "id": "col-jwt-auth",
+        "name": "JWT Auth",
+        "icon": {
+          "name": "lock",
+          "color": "blue"
+        },
+        "auth": {
+          "type": "bearer",
+          "credentials": {
+            "username": "",
+            "password": "{{access_token}}"
+          }
+        },
+        "requests": [
+          {
+            "id": "req-health",
+            "name": "Health",
+            "url": "{{base_url}}/health",
+            "method": "GET",
+            "headers": [],
+            "queryParams": [],
+            "pathParams": [],
+            "auth": {
+              "type": "none"
+            },
+            "body": {
+              "type": "none"
+            }
+          },
+          {
+            "id": "req-login-student",
+            "name": "Auth — Login (student)",
+            "url": "{{base_url}}/auth/login",
+            "method": "POST",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              }
+            ],
+            "queryParams": [],
+            "pathParams": [],
+            "auth": {
+              "type": "none"
+            },
+            "body": {
+              "type": "text",
+              "text": {
+                "format": "application/json",
+                "value": "{\n  \"email\": \"{{email_student}}\",\n  \"password\": \"{{password}}\"\n}"
+              }
+            }
+          },
+          {
+            "id": "req-login-professor",
+            "name": "Auth — Login (professor)",
+            "url": "{{base_url}}/auth/login",
+            "method": "POST",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              }
+            ],
+            "queryParams": [],
+            "pathParams": [],
+            "auth": {
+              "type": "none"
+            },
+            "body": {
+              "type": "text",
+              "text": {
+                "format": "application/json",
+                "value": "{\n  \"email\": \"{{email_professor}}\",\n  \"password\": \"{{password}}\"\n}"
+              }
+            }
+          },
+          {
+            "id": "req-validate",
+            "name": "Auth — Validate token",
+            "url": "{{base_url}}/auth/validate",
+            "method": "GET",
+            "headers": [],
+            "queryParams": [],
+            "pathParams": [],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "none"
+            }
+          },
+          {
+            "id": "req-me",
+            "name": "Auth — Me",
+            "url": "{{base_url}}/auth/me",
+            "method": "GET",
+            "headers": [],
+            "queryParams": [],
+            "pathParams": [],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "none"
+            }
+          },
+          {
+            "id": "req-tasks-list",
+            "name": "Tasks — List",
+            "url": "{{base_url}}/tasks",
+            "method": "GET",
+            "headers": [],
+            "queryParams": [],
+            "pathParams": [],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "none"
+            }
+          },
+          {
+            "id": "req-tasks-summary",
+            "name": "Tasks — Summary",
+            "url": "{{base_url}}/tasks/summary",
+            "method": "GET",
+            "headers": [],
+            "queryParams": [],
+            "pathParams": [],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "none"
+            }
+          },
+          {
+            "id": "req-tasks-get",
+            "name": "Tasks — Get by ID",
+            "url": "{{base_url}}/tasks/:id",
+            "method": "GET",
+            "headers": [],
+            "queryParams": [],
+            "pathParams": [
+              {
+                "name": "id",
+                "value": "{{task_id}}",
+                "enabled": true
+              }
+            ],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "none"
+            }
+          },
+          {
+            "id": "req-tasks-create",
+            "name": "Tasks — Create",
+            "url": "{{base_url}}/tasks",
+            "method": "POST",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              }
+            ],
+            "queryParams": [],
+            "pathParams": [],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "text",
+              "text": {
+                "format": "application/json",
+                "value": "{\n  \"title\": \"Nova tarefa\",\n  \"subject\": \"Cálculo I\",\n  \"due_date\": \"2026-12-01T23:59:59Z\",\n  \"status\": \"pendente\",\n  \"department_id\": \"dept-001\"\n}"
+              }
+            }
+          },
+          {
+            "id": "req-tasks-update",
+            "name": "Tasks — Update",
+            "url": "{{base_url}}/tasks/:id",
+            "method": "PUT",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              }
+            ],
+            "queryParams": [],
+            "pathParams": [
+              {
+                "name": "id",
+                "value": "{{task_id}}",
+                "enabled": true
+              }
+            ],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "text",
+              "text": {
+                "format": "application/json",
+                "value": "{\n  \"title\": \"Tarefa atualizada\",\n  \"subject\": \"Cálculo I\",\n  \"due_date\": \"2026-12-15T23:59:59Z\",\n  \"status\": \"em_andamento\",\n  \"department_id\": \"dept-001\"\n}"
+              }
+            }
+          },
+          {
+            "id": "req-tasks-status",
+            "name": "Tasks — Update status",
+            "url": "{{base_url}}/tasks/:id/status",
+            "method": "PATCH",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              }
+            ],
+            "queryParams": [],
+            "pathParams": [
+              {
+                "name": "id",
+                "value": "{{task_id}}",
+                "enabled": true
+              }
+            ],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "text",
+              "text": {
+                "format": "application/json",
+                "value": "{\n  \"status\": \"concluida\"\n}"
+              }
+            }
+          },
+          {
+            "id": "req-tasks-delete",
+            "name": "Tasks — Delete",
+            "url": "{{base_url}}/tasks/:id",
+            "method": "DELETE",
+            "headers": [],
+            "queryParams": [],
+            "pathParams": [
+              {
+                "name": "id",
+                "value": "{{task_id}}",
+                "enabled": true
+              }
+            ],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "none"
+            }
+          }
+        ]
+      }
+    ],
+    "environments": [
+      {
+        "id": "env-local",
+        "name": "Local",
+        "color": "green",
+        "isDefault": true,
+        "isLocalOnly": false,
+        "variables": [
+          {
+            "id": "var-base-url",
+            "name": "base_url",
+            "value": "http://127.0.0.1:8080",
+            "isSecret": false
+          },
+          {
+            "id": "var-email-student",
+            "name": "email_student",
+            "value": "ana.souza@example.com",
+            "isSecret": false
+          },
+          {
+            "id": "var-email-professor",
+            "name": "email_professor",
+            "value": "helena.castro@example.com",
+            "isSecret": false
+          },
+          {
+            "id": "var-password",
+            "name": "password",
+            "value": "password",
+            "isSecret": true
+          },
+          {
+            "id": "var-access-token",
+            "name": "access_token",
+            "value": "",
+            "isSecret": true
+          },
+          {
+            "id": "var-task-id",
+            "name": "task_id",
+            "value": "task-001",
+            "isSecret": false
+          }
+        ]
+      }
+    ],
+    "drafts": []
+  }
+}
