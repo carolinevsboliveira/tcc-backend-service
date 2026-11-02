@@ -12,6 +12,7 @@ import (
 	httpadapter "github.com/caroline-oliveira/backend-tcc/internal/adapters/http"
 	"github.com/caroline-oliveira/backend-tcc/internal/adapters/jwt"
 	"github.com/caroline-oliveira/backend-tcc/internal/adapters/memory"
+	"github.com/caroline-oliveira/backend-tcc/internal/application/announcements"
 	"github.com/caroline-oliveira/backend-tcc/internal/application/auth"
 	"github.com/caroline-oliveira/backend-tcc/internal/application/tasks"
 	"github.com/joho/godotenv"
@@ -36,6 +37,7 @@ func main() {
 		log.Fatal(err)
 	}
 	taskRepository := memory.NewTaskRepository()
+	announcementRepository := memory.NewAnnouncementRepository()
 
 	jwtProvider, err := jwt.NewJWTProvider([]byte(os.Getenv("JWT_SECRET")), time.Now)
 	if err != nil {
@@ -43,9 +45,11 @@ func main() {
 	}
 	authService := auth.NewAuthService(userRepository, jwtProvider)
 	taskService := tasks.NewService(taskRepository, userRepository, authService)
+	announcementService := announcements.NewService(announcementRepository, userRepository, authService)
 	router := httpadapter.NewRouter(httpadapter.Dependencies{
-		Auth:  httpadapter.NewAuthHandler(authService),
-		Tasks: httpadapter.NewTasksHandler(taskService),
+		Auth:          httpadapter.NewAuthHandler(authService),
+		Tasks:         httpadapter.NewTasksHandler(taskService),
+		Announcements: httpadapter.NewAnnouncementsHandler(announcementService),
 	})
 	server := &http.Server{
 		Addr:        ":8080",

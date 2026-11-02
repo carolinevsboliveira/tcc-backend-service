@@ -6,8 +6,9 @@ import (
 )
 
 type Dependencies struct {
-	Auth  *AuthHandler
-	Tasks *TasksHandler
+	Auth          *AuthHandler
+	Tasks         *TasksHandler
+	Announcements *AnnouncementsHandler
 }
 
 // NewRouter builds the HTTP mux for the API.
@@ -32,6 +33,14 @@ func NewRouter(deps Dependencies) http.Handler {
 	mux.HandleFunc("PUT /tasks/{id}", deps.Tasks.Update)
 	mux.HandleFunc("PATCH /tasks/{id}/status", deps.Tasks.UpdateStatus)
 	mux.HandleFunc("DELETE /tasks/{id}", deps.Tasks.Delete)
+
+	mux.HandleFunc("GET /announcements", deps.Announcements.List)
+	mux.HandleFunc("POST /announcements", deps.Announcements.Create)
+	mux.HandleFunc("GET /announcements/{id}", deps.Announcements.Get)
+	mux.HandleFunc("PUT /announcements/{id}", deps.Announcements.Update)
+	mux.HandleFunc("DELETE /announcements/{id}", deps.Announcements.Delete)
+	mux.HandleFunc("POST /announcements/{id}/read", deps.Announcements.MarkRead)
+	mux.HandleFunc("GET /home", deps.Announcements.Home)
 
 	return mux
 }
