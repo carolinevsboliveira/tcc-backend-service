@@ -12,10 +12,10 @@ import (
 )
 
 type UserRepository struct {
-	mu           sync.RWMutex
-	byID         map[string]domain.User
-	byEmail      map[string]string
-	departments  map[string]domain.Department
+	mu          sync.RWMutex
+	byID        map[string]domain.User
+	byEmail     map[string]string
+	departments map[string]domain.Department
 }
 
 type seedUser struct {
@@ -50,7 +50,7 @@ func NewUserRepository(seedPassword string) (*UserRepository, error) {
 	seeds := []seedUser{
 		{ID: "stu-001", Name: "Ana Souza", Email: "ana.souza@example.com", Role: domain.RoleStudent, DepartmentID: "dept-001", Active: true},
 		{ID: "stu-002", Name: "Bruno Lima", Email: "bruno.lima@example.com", Role: domain.RoleStudent, DepartmentID: "dept-002", Active: true},
-		{ID: "stu-003", Name: "Carla Mendes", Email: "carla.mendes@example.com", Role: domain.RoleStudent, DepartmentID: "dept-003", Active: false},
+		{ID: "stu-003", Name: "Carla Mendes", Email: "carla.mendes@example.com", Role: domain.RoleStudent, DepartmentID: "dept-003", Active: true},
 		{ID: "prf-001", Name: "Dr. Helena Castro", Email: "helena.castro@example.com", Role: domain.RoleProfessor, DepartmentID: "dept-001", Active: true},
 		{ID: "prf-002", Name: "Dr. Igor Nunes", Email: "igor.nunes@example.com", Role: domain.RoleProfessor, DepartmentID: "dept-004", Active: true},
 		{ID: "prf-003", Name: "Dra. Juliana Prado", Email: "juliana.prado@example.com", Role: domain.RoleProfessor, DepartmentID: "dept-003", Active: false},
@@ -89,7 +89,6 @@ func (r *UserRepository) GetDepartment(_ context.Context, id string) (domain.Dep
 	}
 	return dept, nil
 }
-
 
 func (r *UserRepository) List(_ context.Context) ([]domain.User, error) {
 	r.mu.RLock()
