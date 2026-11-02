@@ -281,6 +281,165 @@
             "body": {
               "type": "none"
             }
+          },
+          {
+            "id": "req-home",
+            "name": "Home — Unread",
+            "url": "{{base_url}}/home",
+            "method": "GET",
+            "headers": [],
+            "queryParams": [],
+            "pathParams": [],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "none"
+            }
+          },
+          {
+            "id": "req-announcements-list",
+            "name": "Announcements — List",
+            "url": "{{base_url}}/announcements",
+            "method": "GET",
+            "headers": [],
+            "queryParams": [],
+            "pathParams": [],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "none"
+            }
+          },
+          {
+            "id": "req-announcements-get",
+            "name": "Announcements — Get by ID",
+            "url": "{{base_url}}/announcements/:id",
+            "method": "GET",
+            "headers": [],
+            "queryParams": [],
+            "pathParams": [
+              {
+                "name": "id",
+                "value": "{{announcement_id}}",
+                "enabled": true
+              }
+            ],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "none"
+            }
+          },
+          {
+            "id": "req-announcements-create",
+            "name": "Announcements — Create",
+            "url": "{{base_url}}/announcements",
+            "method": "POST",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              }
+            ],
+            "queryParams": [],
+            "pathParams": [],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "text",
+              "text": {
+                "format": "application/json",
+                "value": "{\n  \"title\": \"Novo aviso\",\n  \"body\": \"Conteúdo do aviso.\",\n  \"department_id\": \"dept-001\"\n}"
+              }
+            }
+          },
+          {
+            "id": "req-announcements-update",
+            "name": "Announcements — Update",
+            "url": "{{base_url}}/announcements/:id",
+            "method": "PUT",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              }
+            ],
+            "queryParams": [],
+            "pathParams": [
+              {
+                "name": "id",
+                "value": "{{announcement_id}}",
+                "enabled": true
+              }
+            ],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "text",
+              "text": {
+                "format": "application/json",
+                "value": "{\n  \"title\": \"Aviso atualizado\",\n  \"body\": \"Conteúdo atualizado.\",\n  \"department_id\": \"dept-001\"\n}"
+              }
+            }
+          },
+          {
+            "id": "req-announcements-read",
+            "name": "Announcements — Mark read",
+            "url": "{{base_url}}/announcements/:id/read",
+            "method": "POST",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json",
+                "enabled": true
+              }
+            ],
+            "queryParams": [],
+            "pathParams": [
+              {
+                "name": "id",
+                "value": "{{announcement_id}}",
+                "enabled": true
+              }
+            ],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "text",
+              "text": {
+                "format": "application/json",
+                "value": "{\n  \"text\": \"Ok, professor\"\n}"
+              }
+            }
+          },
+          {
+            "id": "req-announcements-delete",
+            "name": "Announcements — Delete",
+            "url": "{{base_url}}/announcements/:id",
+            "method": "DELETE",
+            "headers": [],
+            "queryParams": [],
+            "pathParams": [
+              {
+                "name": "id",
+                "value": "{{announcement_id}}",
+                "enabled": true
+              }
+            ],
+            "auth": {
+              "type": "inherited"
+            },
+            "body": {
+              "type": "none"
+            }
           }
         ]
       }
@@ -327,6 +486,12 @@
             "id": "var-task-id",
             "name": "task_id",
             "value": "task-001",
+            "isSecret": false
+          },
+          {
+            "id": "var-announcement-id",
+            "name": "announcement_id",
+            "value": "ann-001",
             "isSecret": false
           }
         ]
